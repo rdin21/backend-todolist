@@ -1,4 +1,51 @@
-import { Injectable } from '@nestjs/common';
-
+import { CreateUserDto } from './dto/CreateUserDto';
+import { Injectable , HttpException, HttpStatus} from '@nestjs/common';
+import { User } from './user.model';
+import { InjectModel } from '@nestjs/sequelize';
 @Injectable()
-export class UserService {}
+export class UserService {
+    constructor(
+        @InjectModel(User) private userModel: typeof User,
+      ) {}
+
+    async createUser(dto: CreateUserDto) {
+        const {email, password, name, lastname} = dto
+        const candidateUserEmail = await this.userModel.findOne({
+            where: {email},
+            include: {all: true}
+        })
+        if(typeof password !== 'string') {
+            throw new HttpException(
+            'Недействительный пороль',
+            HttpStatus.BAD_REQUEST,
+            )
+        }
+        if(typeof name !== 'string') {
+            throw new HttpException(
+            'Имя не строка',
+            HttpStatus.BAD_REQUEST,
+            )
+        }
+        if(typeof lastname !== 'string') {
+            throw new HttpException(
+            'Фамилия не строка',
+            HttpStatus.BAD_REQUEST,
+            )
+        }
+
+        if(candidateUserEmail) {
+            throw new HttpException(
+            'Пользвотель с таким email существует',
+            HttpStatus.BAD_REQUEST,
+        )
+        }
+
+        const user = await this.userModel.create(dto)
+        return user
+    }
+    async getAllUser () {
+        const users = await this.userModel.findAll({include: {all: true}})
+        return users
+    }
+ 
+}

@@ -1,9 +1,10 @@
 import { AppService } from './app.service';
-import { Module } from "@nestjs/common";
+import {  Module } from "@nestjs/common";
 import {ConfigModule} from '@nestjs/config'
 import { SequelizeModule } from "@nestjs/sequelize";
 import {ApiController} from './app.controller'
 import { UserModule } from './user/user.module';
+
 
 @Module({
     controllers: [ApiController],
