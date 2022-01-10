@@ -4,6 +4,7 @@ import {ConfigModule} from '@nestjs/config'
 import { SequelizeModule } from "@nestjs/sequelize";
 import {ApiController} from './app.controller'
 import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 
 
 @Module({
@@ -26,6 +27,7 @@ import { UserModule } from './user/user.module';
             autoLoadModels: true
         }),
         UserModule,
+        AuthModule,
         // Все модули, пример UserModule
     ],
 })

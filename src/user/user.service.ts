@@ -9,11 +9,8 @@ export class UserService {
       ) {}
 
     async createUser(dto: CreateUserDto) {
-        const {email, password, name, lastname} = dto
-        const candidateUserEmail = await this.userModel.findOne({
-            where: {email},
-            include: {all: true}
-        })
+        const { password, name, lastname} = dto
+        
         if(typeof password !== 'string') {
             throw new HttpException(
             'Недействительный пороль',
@@ -33,12 +30,7 @@ export class UserService {
             )
         }
 
-        if(candidateUserEmail) {
-            throw new HttpException(
-            'Пользвотель с таким email существует',
-            HttpStatus.BAD_REQUEST,
-        )
-        }
+        
 
         const user = await this.userModel.create(dto)
         return user
@@ -47,5 +39,11 @@ export class UserService {
         const users = await this.userModel.findAll({include: {all: true}})
         return users
     }
- 
+    async getUserByEmail(email: string) {
+        const user = await this.userModel.findOne({
+          where: { email },
+          include: { all: true },
+        });
+        return user;
+      }
 }
