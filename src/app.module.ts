@@ -1,3 +1,5 @@
+import { TaskDate } from './date/date.model';
+import { Task } from './task/tesk.model';
 import { AppService } from './app.service';
 import {  Module } from "@nestjs/common";
 import {ConfigModule} from '@nestjs/config'
@@ -5,6 +7,12 @@ import { SequelizeModule } from "@nestjs/sequelize";
 import {ApiController} from './app.controller'
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
+import { TaskModule } from './task/task.module';
+import { User } from './user/user.model';
+import { DateModule } from './date/date.module';
+import { CategoriesService } from './categories/categories.service';
+import { CategoriesModule } from './categories/categories.module';
+import { Categories } from './categories/categories.model';
 
 
 @Module({
@@ -22,12 +30,15 @@ import { AuthModule } from './auth/auth.module';
             password: process.env.POSTGRES_PASSWORD,
             database: process.env.POSTGRES_DB,
             //Модели данных в базе данных
-            models: [],
+            models: [User, Task, TaskDate, Categories],
             //Автоматическое создание моделей
-            autoLoadModels: true
+            // autoLoadModels: true 
         }),
         UserModule,
         AuthModule,
+        TaskModule,
+        DateModule,
+        CategoriesModule,
         // Все модули, пример UserModule
     ],
 })

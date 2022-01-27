@@ -1,6 +1,7 @@
+import { AuthMiddleware } from './auth.middleware';
 import { AppService } from './../app.service';
 import { UserModule } from './../user/user.module';
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { JwtModule } from '@nestjs/jwt';
@@ -11,7 +12,7 @@ import { JwtModule } from '@nestjs/jwt';
   imports: [
     UserModule,
     JwtModule.register({
-      secret: process.env.PRIVATE_KEY || 'SECRET',
+      secret: "SECRET",
       signOptions: {
         expiresIn: '72h',
       },
@@ -19,4 +20,8 @@ import { JwtModule } from '@nestjs/jwt';
   ],
   // exports: [AppService, JwtModule]
 })
-export class AuthModule {}
+export class AuthModule implements NestModule {
+  public configure(consumer: MiddlewareConsumer) {
+    consumer.apply(AuthMiddleware).forRoutes({path: 'auth/auth', method: RequestMethod.GET})
+  }
+}

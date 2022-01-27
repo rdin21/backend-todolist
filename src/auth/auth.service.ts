@@ -7,18 +7,18 @@ import {compare, hash} from 'bcrypt'
 import { User } from 'src/user/user.model';
 @Injectable()
 export class AuthService {
-    constructor(
+    public constructor(
         private userService: UserService,
         private jwtService: JwtService
     ){}
 
-    async login(userDto: LoginUserDto){
+    public async login(userDto: LoginUserDto){
       const user = await this.validateUser(userDto)
       return this.generateToken(user)
     }
 
     
-    async registration(userDto: CreateUserDto){
+    public async registration(userDto: CreateUserDto){
       const candidate = await this.userService.getUserByEmail(userDto.email);
       if (candidate) {
         throw new HttpException(
@@ -34,8 +34,14 @@ export class AuthService {
       return this.generateToken(user)
     }
 
+    public async check(email:string) {
+      const user = await this.userService.getUserByEmail(email)
+      return this.generateToken(user)
+
+    }
+
     private async generateToken(user:User) {
-      const payload = {email: user.email, id:user.id}
+      const payload = {email: user.email, id:user.id, name: user.name, lastname: user.lastname}
       return {
         access_token: this.jwtService.sign(payload)
       }
@@ -49,6 +55,7 @@ export class AuthService {
       }
       throw new HttpException('Неверный email и пароль', HttpStatus.BAD_REQUEST);
     }
+
 }
 
 

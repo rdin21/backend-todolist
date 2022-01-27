@@ -1,5 +1,6 @@
+import { Task } from './../task/tesk.model';
 import { ApiProperty } from "@nestjs/swagger";
-import { Column, DataType, Table, Model } from "sequelize-typescript";
+import { Column, DataType, Table, Model, HasMany } from "sequelize-typescript";
 
 interface UserCreationAttrs {
     email: string,
@@ -34,5 +35,8 @@ export class User extends Model<User, UserCreationAttrs> {
     @ApiProperty({example: '1234567890', description: 'Пороль пользвотеля'})
     @Column({type:DataType.STRING, allowNull: false})
     password: string
+
+    @HasMany(() => Task)
+    tasks: Task[]
 
 }
