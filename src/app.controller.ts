@@ -1,13 +1,13 @@
 import { AppService } from './app.service';
-import { Controller, Get } from "@nestjs/common";
+import { Controller, Get } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
-@ApiTags("App")
+@ApiTags('App')
 @Controller('/api')
-export class ApiController{
+export class ApiController {
     constructor(private appService: AppService) {}
-    @Get("/todo")
+    @Get('/todo')
     getTodo() {
-        return this.appService.getTodo()
+        return this.appService.getTodo();
     }
 }

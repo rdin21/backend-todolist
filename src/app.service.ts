@@ -1,8 +1,8 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class AppService{
+export class AppService {
     getTodo() {
-        return[{id: 1, text: "TEST TEXT TODO", category: 'Health'}]
+        return [{ id: 1, text: 'TEST TEXT TODO', category: 'Health' }];
     }
 }

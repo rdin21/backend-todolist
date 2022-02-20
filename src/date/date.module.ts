@@ -6,9 +6,9 @@ import { DateController } from './date.controller';
 import { SequelizeModule } from '@nestjs/sequelize';
 
 @Module({
-  providers: [DateService],
-  controllers: [DateController],
-  imports: [SequelizeModule.forFeature([TaskDate,Task])],
-  exports: [DateService]
+    providers: [DateService],
+    controllers: [DateController],
+    imports: [SequelizeModule.forFeature([TaskDate, Task])],
+    exports: [DateService],
 })
 export class DateModule {}

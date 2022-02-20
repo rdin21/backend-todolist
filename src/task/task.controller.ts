@@ -1,30 +1,30 @@
-import { CreateTaskDto, UpdateTaskDto } from './dto/create-task.dto';
+import { CreateTaskDto, UpdateTaskDto, UpdateStatusDto } from './dto/create-task.dto';
 import { TaskService } from './task.service';
-import { Controller, Delete, Body, Post, Put } from '@nestjs/common';
+import { Controller, Delete, Body, Post, Put, Patch } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
-@ApiTags("Задачи")
+@ApiTags('Задачи')
 @Controller('task')
 export class TaskController {
-
-    constructor(
-        private taskService: TaskService
-    
-        ){}
+    constructor(private taskService: TaskService) {}
 
     @Post()
     create(@Body() createTaskDto: CreateTaskDto) {
-        return this.taskService.create(createTaskDto)
+        return this.taskService.create(createTaskDto);
     }
-     
+
     @Delete()
     delete(@Body('id') id: number) {
-        return this.taskService.delete(id)
+        return this.taskService.delete(id);
     }
 
     @Put()
     update(@Body() updateTaskDto: UpdateTaskDto) {
-        return this.taskService.update(updateTaskDto)
+        return this.taskService.update(updateTaskDto);
     }
 
+    @Patch()
+    updateStatus(@Body() updateStatusDto: UpdateStatusDto) {
+        return this.taskService.updateStatus(updateStatusDto);
+    }
 }

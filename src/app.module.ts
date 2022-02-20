@@ -1,26 +1,24 @@
 import { TaskDate } from './date/date.model';
 import { Task } from './task/tesk.model';
 import { AppService } from './app.service';
-import {  Module } from "@nestjs/common";
-import {ConfigModule} from '@nestjs/config'
-import { SequelizeModule } from "@nestjs/sequelize";
-import {ApiController} from './app.controller'
+import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { SequelizeModule } from '@nestjs/sequelize';
+import { ApiController } from './app.controller';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { TaskModule } from './task/task.module';
 import { User } from './user/user.model';
 import { DateModule } from './date/date.module';
-import { CategoriesService } from './categories/categories.service';
 import { CategoriesModule } from './categories/categories.module';
 import { Categories } from './categories/categories.model';
-
 
 @Module({
     controllers: [ApiController],
     providers: [AppService],
-    imports:[
+    imports: [
         ConfigModule.forRoot({
-            envFilePath: '.env'
+            envFilePath: '.env',
         }),
         SequelizeModule.forRoot({
             dialect: 'postgres',
@@ -32,7 +30,7 @@ import { Categories } from './categories/categories.model';
             //Модели данных в базе данных
             models: [User, Task, TaskDate, Categories],
             //Автоматическое создание моделей
-            // autoLoadModels: true 
+            // autoLoadModels: true
         }),
         UserModule,
         AuthModule,
@@ -42,4 +40,4 @@ import { Categories } from './categories/categories.model';
         // Все модули, пример UserModule
     ],
 })
-export class AppModule{}
+export class AppModule {}

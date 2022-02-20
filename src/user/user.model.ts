@@ -1,42 +1,39 @@
 import { Task } from './../task/tesk.model';
-import { ApiProperty } from "@nestjs/swagger";
-import { Column, DataType, Table, Model, HasMany } from "sequelize-typescript";
+import { ApiProperty } from '@nestjs/swagger';
+import { Column, DataType, Table, Model, HasMany } from 'sequelize-typescript';
 
 interface UserCreationAttrs {
-    email: string,
-    password:string,
+    email: string;
+    password: string;
 }
 
-
-@Table({tableName: 'users'})
+@Table({ tableName: 'users' })
 export class User extends Model<User, UserCreationAttrs> {
-
     @ApiProperty({ example: 1, description: 'Уникальный индентификатор' })
     @Column({
         type: DataType.INTEGER,
         unique: true,
         autoIncrement: true,
-        primaryKey: true
+        primaryKey: true,
     })
-    id: number 
-    
-    @ApiProperty({example: 'Иван', description: 'Имя пользвотеля'})
-    @Column({type: DataType.STRING, allowNull: false})
-    name: string
+    id: number;
 
-    @ApiProperty({example: "Иванов", description: 'Фамилия пользвотеля'})
-    @Column({type: DataType.STRING})
-    lastname: string
+    @ApiProperty({ example: 'Иван', description: 'Имя пользвотеля' })
+    @Column({ type: DataType.STRING, allowNull: false })
+    name: string;
 
-    @ApiProperty({example: "user@email.com", description: 'Email пользвотеля'})
-    @Column({type:DataType.STRING, unique: true, allowNull: false})
-    email: string
+    @ApiProperty({ example: 'Иванов', description: 'Фамилия пользвотеля' })
+    @Column({ type: DataType.STRING })
+    lastname: string;
 
-    @ApiProperty({example: '1234567890', description: 'Пороль пользвотеля'})
-    @Column({type:DataType.STRING, allowNull: false})
-    password: string
+    @ApiProperty({ example: 'user@email.com', description: 'Email пользвотеля' })
+    @Column({ type: DataType.STRING, unique: true, allowNull: false })
+    email: string;
+
+    @ApiProperty({ example: '1234567890', description: 'Пороль пользвотеля' })
+    @Column({ type: DataType.STRING, allowNull: false })
+    password: string;
 
     @HasMany(() => Task)
-    tasks: Task[]
-
+    tasks: Task[];
 }

@@ -7,9 +7,9 @@ import { TaskController } from './task.controller';
 import { SequelizeModule } from '@nestjs/sequelize';
 
 @Module({
-  providers: [TaskService],
-  controllers: [TaskController],
-  imports: [SequelizeModule.forFeature([Task, TaskDate]), DateModule],
-  exports: [TaskService]
+    providers: [TaskService],
+    controllers: [TaskController],
+    imports: [SequelizeModule.forFeature([Task, TaskDate]), DateModule],
+    exports: [TaskService],
 })
 export class TaskModule {}
