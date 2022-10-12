@@ -8,13 +8,13 @@ import { User } from './user.model';
 @Controller('user')
 export class UserController {
     constructor(private userService: UserService) {}
-    @ApiOperation({ summary: 'Создание пользвотеля' })
+    @ApiOperation({ summary: 'Создание пользователь' })
     @ApiResponse({ status: 200, type: User })
     @Post()
     create(@Body() userDto: CreateUserDto) {
         return this.userService.createUser(userDto);
     }
-    @ApiOperation({ summary: 'Получение все пользвотелей' })
+    @ApiOperation({ summary: 'Получение все пользователей' })
     @ApiResponse({ status: 200, type: [User] })
     @Get()
     getAll() {

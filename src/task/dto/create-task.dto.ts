@@ -15,18 +15,18 @@ export class CreateTaskDto {
     @ApiProperty({ example: 'true', description: 'Статус выполнения' })
     readonly status?: boolean;
 
-    @ApiProperty({ example: 'Иван', description: 'Имя пользвотеля' })
+    @ApiProperty({ example: 'Иван', description: 'Имя пользователя' })
     readonly categoriesID: number;
 
     @ApiProperty({ example: '1', description: 'ID задачи' })
     readonly taskDateId: number;
 
-    @ApiProperty({ example: '1', description: 'ID пользвотеля' })
+    @ApiProperty({ example: '1', description: 'ID пользователя' })
     readonly userId: number;
 }
 
 export class UpdateTaskDto {
-    @ApiProperty({ example: '1', description: 'ID пользвотеля' })
+    @ApiProperty({ example: '1', description: 'ID пользователя' })
     readonly id: number;
 
     @ApiProperty({ example: 'Сходить в магазин', description: 'текст' })
@@ -34,7 +34,7 @@ export class UpdateTaskDto {
 }
 
 export class UpdateStatusDto {
-    @ApiProperty({ example: '1', description: 'ID пользвотеля' })
+    @ApiProperty({ example: '1', description: 'ID пользователя' })
     readonly id: number;
 
     @ApiProperty({ example: 'True, false', description: 'Выполнена задача?' })

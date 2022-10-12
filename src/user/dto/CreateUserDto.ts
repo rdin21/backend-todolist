@@ -11,6 +11,7 @@ export class CreateUserDto {
     readonly lastname: string;
 
     @ApiProperty({ example: 'user@email.com', description: 'Email пользвотеля' })
+	@IsString({ message: 'Должно быть строкой' })
     @IsEmail({}, { message: 'Некоректный email' })
     readonly email: string;
 

@@ -15,7 +15,7 @@ interface TaskCreationAttrs {
 
 @Table({ tableName: 'task' })
 export class Task extends Model<Task, TaskCreationAttrs> {
-    @ApiProperty({ example: 1, description: 'Уникальный индентификатор' })
+    @ApiProperty({ example: 1, description: 'Уникальный идентификатор' })
     @Column({
         type: DataType.INTEGER,
         unique: true,
@@ -40,7 +40,7 @@ export class Task extends Model<Task, TaskCreationAttrs> {
     @Column({ type: DataType.BOOLEAN })
     status: boolean;
 
-    @ApiProperty({ example: '10', description: 'Уникальный индентификатор пользвотеля' })
+    @ApiProperty({ example: '10', description: 'Уникальный идентификатор пользователя' })
     @ForeignKey(() => User)
     @Column({ type: DataType.INTEGER })
     userId: number;
