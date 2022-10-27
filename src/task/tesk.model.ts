@@ -24,7 +24,7 @@ export class Task extends Model<Task, TaskCreationAttrs> {
     })
     id: number;
 
-    @ApiProperty({ example: 'Lorem ipsum', description: 'Дата задачи' })
+    @ApiProperty({ example: '20.20.2000', description: 'Дата задачи' })
     @Column({ type: DataType.STRING, allowNull: false })
     date: string;
 

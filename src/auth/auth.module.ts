@@ -17,7 +17,6 @@ import { JwtModule } from '@nestjs/jwt';
             },
         }),
     ],
-    // exports: [AppService, JwtModule]
 })
 export class AuthModule implements NestModule {
     public configure(consumer: MiddlewareConsumer) {

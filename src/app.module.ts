@@ -27,17 +27,15 @@ import { Categories } from './categories/categories.model';
             username: process.env.POSTGRES_USERNAME,
             password: process.env.POSTGRES_PASSWORD,
             database: process.env.POSTGRES_DB,
-            //Модели данных в базе данных
             models: [User, Task, TaskDate, Categories],
             //Автоматическое создание моделей
-            // autoLoadModels: true
+            // autoLoadModels: true,
         }),
         UserModule,
         AuthModule,
         TaskModule,
         DateModule,
         CategoriesModule,
-        // Все модули, пример UserModule
     ],
 })
 export class AppModule {}

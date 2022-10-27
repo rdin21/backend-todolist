@@ -1,3 +1,4 @@
+import { CreateDateDto } from './dto/create-date.dto';
 import { TaskDate } from './date.model';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { DateService } from './date.service';
@@ -10,7 +11,7 @@ export class DateController {
     @ApiOperation({ summary: 'Создание даты' })
     @ApiResponse({ status: 200, type: TaskDate })
     @Get()
-    findOne(@Query() date: any): any {
+    findOne(@Query() date: CreateDateDto): Promise<TaskDate[]> {
         const formatDate: string = date.date.split('_').join('.');
         return this.dateService.getByDate(formatDate);
     }
@@ -18,13 +19,8 @@ export class DateController {
     @ApiOperation({ summary: 'Проверка или создание даты' })
     @ApiResponse({ status: 200, type: TaskDate })
     @Get('/check_date')
-    checkDate(@Query() date: any): any {
+    checkDate(@Query() date: CreateDateDto): Promise<TaskDate> {
         const formatDate: string = date.date.split('_').join('.');
         return this.dateService.checkDate(formatDate);
     }
-    // @Post()
-    // @ApiResponse({status: 200, type:[TaskDate]})
-    // create(@Body() dateDto: CreateDateDto): Promise<TaskDate> {
-    //     return this.dateService.createDate(dateDto)
-    // }
 }

@@ -14,8 +14,9 @@ async function start() {
         .addTag('Todo')
         .build();
     const document = SwaggerModule.createDocument(app, config);
-    SwaggerModule.setup('/api/docs', app, document);
+    SwaggerModule.setup('/docs', app, document);
 
+    app.setGlobalPrefix('api');
     app.useGlobalPipes(new ValidationPipe());
 
     await app.listen(PORT, () => console.log(`SERVER STARTED ON ${PORT}`));

@@ -1,8 +1,8 @@
-import { Task } from './../task/tesk.model';
-import { CreateCategoriesDto, UpdateCategoryDto } from './dto/categories.dto';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Categories } from './categories.model';
+import { Task } from './../task/tesk.model';
+import { CreateCategoriesDto, UpdateCategoryDto } from './dto/categories.dto';
 
 @Injectable()
 export class CategoriesService {
@@ -34,7 +34,7 @@ export class CategoriesService {
         return deleteCategories;
     }
 
-    async update(dto: UpdateCategoryDto) {
+    async update(dto: UpdateCategoryDto): Promise<[number, Categories[]]> {
         const { id, name, color } = dto;
         const updateCategory = await this.categoriesRepository.update({ name, color }, { where: { id } });
         return updateCategory;

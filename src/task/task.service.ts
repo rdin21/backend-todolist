@@ -1,14 +1,14 @@
-import { CreateDateDto } from './../date/dto/create-date.dto';
-import { DateService } from './../date/date.service';
-import { CreateTaskDto, UpdateTaskDto, UpdateStatusDto } from './dto/create-task.dto';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import { CreateDateDto } from './../date/dto/create-date.dto';
+import { DateService } from './../date/date.service';
+import { CreateTaskDto, UpdateTaskDto, UpdateStatusDto, DeleteTaskDto } from './dto/create-task.dto';
 import { Task } from './tesk.model';
 
 @Injectable()
 export class TaskService {
     constructor(@InjectModel(Task) private taskRepository: typeof Task, private dateService: DateService) {}
-    async create(createTaskDto: CreateTaskDto) {
+    async create(createTaskDto: CreateTaskDto): Promise<Task> {
         const date = createTaskDto.date.split('_').join('.');
         const checkDate = await this.dateService.checkDate(date);
         if (checkDate) {
@@ -29,17 +29,17 @@ export class TaskService {
             return newTask;
         }
     }
-    async update(updateTaskDto: UpdateTaskDto) {
+    async update(updateTaskDto: UpdateTaskDto): Promise<[number, Task[]]> {
         const { id, text } = updateTaskDto;
         const updateTask = await this.taskRepository.update({ text }, { where: { id } });
         return updateTask;
     }
-    async delete(id: number) {
+    async delete(id: DeleteTaskDto): Promise<number> {
         const deleteTask = await this.taskRepository.destroy({ where: { id } });
         return deleteTask;
     }
 
-    async updateStatus(upDateStatus: UpdateStatusDto) {
+    async updateStatus(upDateStatus: UpdateStatusDto): Promise<[number, Task[]]> {
         const { id, status } = upDateStatus;
         return await this.taskRepository.update({ status }, { where: { id } });
     }
