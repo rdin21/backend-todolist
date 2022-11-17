@@ -8,7 +8,7 @@ export class CreateCategoriesDto {
 
     @ApiProperty({ example: 'Синий', description: 'цвет категории' })
     @IsString({ message: 'Должно быть строкой' })
-    @Length(3, 30, { message: 'Не меньше 3 и не больше 30' })
+    @Length(1, 30, { message: 'Не меньше 1 и не больше 30' })
     readonly color: string;
 }
 

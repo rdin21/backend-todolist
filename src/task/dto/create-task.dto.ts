@@ -3,7 +3,6 @@ import { IsString, IsInt, IsBoolean, Length } from 'class-validator';
 export class CreateTaskDto {
     @ApiProperty({ example: '01_01_2001', description: 'дата' })
     @IsString({ message: 'Должно быть строкой' })
-    @Length(15, 20, { message: 'Не меньше 15 и не больше 20' })
     readonly date: string;
 
     @ApiProperty({ example: 'Сходить в магазин', description: 'текст' })
@@ -13,11 +12,10 @@ export class CreateTaskDto {
 
     @ApiProperty({ example: '12:00', description: 'время' })
     @IsString({ message: 'Должно быть строкой' })
-    @Length(2, 6, { message: 'Не меньше 2 и не больше 6' })
+    @Length(2, 6, { message: 'Длина времени должна быть равно 5' })
     readonly time: string;
 
     @ApiProperty({ example: 'true', description: 'Статус выполнения' })
-    @IsBoolean({ message: 'Должно быть true или false' })
     readonly status?: boolean;
 
     @ApiProperty({ example: 'Иван', description: 'Имя пользователя' })
