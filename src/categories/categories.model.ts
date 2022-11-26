@@ -1,6 +1,7 @@
+import { User } from 'src/user/user.model';
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, DataType, Table, Model, HasMany } from 'sequelize-typescript';
-import { Task } from 'src/task/tesk.model';
+import { Column, DataType, Table, Model, HasMany, ForeignKey } from 'sequelize-typescript';
+import { Task } from 'src/task/task.model';
 
 interface CategoriesCreationAttrs {
     name: string;
@@ -25,6 +26,10 @@ export class Categories extends Model<Categories, CategoriesCreationAttrs> {
     @ApiProperty({ example: 'Синий', description: 'Название цвета' })
     @Column({ type: DataType.STRING })
     color: string;
+
+    @ForeignKey(() => User)
+    @Column({ type: DataType.INTEGER })
+    userId: number;
 
     @HasMany(() => Task)
     tasks: Task[];

@@ -10,6 +10,10 @@ export class CreateCategoriesDto {
     @IsString({ message: 'Должно быть строкой' })
     @Length(1, 30, { message: 'Не меньше 1 и не больше 30' })
     readonly color: string;
+
+    @ApiProperty({ example: 56, description: 'Id пользователя ' })
+    @IsInt()
+    readonly userId: number;
 }
 
 export class UpdateCategoryDto {
@@ -26,4 +30,12 @@ export class UpdateCategoryDto {
     @IsString({ message: 'Должно быть строкой' })
     @Length(3, 30, { message: 'Не меньше 3 и не больше 30' })
     readonly color: string;
+}
+export class GetAllCategoriesAndTaskQuery {
+    @ApiProperty({ example: '20-02-2000', description: 'Год, месяц, день' })
+    @IsString({ message: 'Должно быть строкой' })
+    readonly date: string;
+
+    @ApiProperty({ example: 56, description: 'Id пользователя ' })
+    readonly userId: number;
 }

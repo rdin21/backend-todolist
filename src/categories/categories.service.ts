@@ -1,31 +1,46 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Categories } from './categories.model';
-import { Task } from './../task/tesk.model';
-import { CreateCategoriesDto, UpdateCategoryDto } from './dto/categories.dto';
+import { Task } from '../task/task.model';
+import { CreateCategoriesDto, UpdateCategoryDto, GetAllCategoriesAndTaskQuery } from './dto/categories.dto';
 
 @Injectable()
 export class CategoriesService {
     constructor(@InjectModel(Categories) private categoriesRepository: typeof Categories) {}
 
-    async getAll(): Promise<Categories[]> {
-        const allCategories = await this.categoriesRepository.findAll();
+    async getAll(userId: number): Promise<Categories[]> {
+        const allCategories = await this.categoriesRepository.findAll({
+            where: { userId },
+        });
         return allCategories;
     }
 
-    async getAllCategoriesAndTask(date: string): Promise<Categories[]> {
+    async getAllCategoriesAndTask(query: GetAllCategoriesAndTaskQuery): Promise<Categories[]> {
+        const { date, userId } = query;
         const allCategories = await this.categoriesRepository.findAll({
-            include: { model: Task, where: { date } },
+            include: { model: Task, where: { date, userId } },
         });
         return allCategories;
     }
 
     async create(categoriesDto: CreateCategoriesDto): Promise<Categories> {
-        const checkCategories = await this.categoriesRepository.findOne({ where: { name: categoriesDto.name } });
+        const { name, userId } = categoriesDto;
+        const checkCategories = await this.categoriesRepository.findOne({ where: { name } });
+
+        if (checkCategories) {
+            if (checkCategories.name === name && checkCategories.userId === userId) {
+                throw new HttpException('Такая категория уже есть!!', HttpStatus.BAD_REQUEST);
+            } else {
+                const newCategory = await this.categoriesRepository.create(categoriesDto);
+                return newCategory;
+            }
+        }
+
         if (!checkCategories) {
             const newCategory = await this.categoriesRepository.create(categoriesDto);
             return newCategory;
         }
+
         throw new HttpException('Такая категория уже есть', HttpStatus.BAD_REQUEST);
     }
 
