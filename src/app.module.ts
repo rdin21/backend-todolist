@@ -1,5 +1,5 @@
 import { TaskDate } from './date/date.model';
-import { Task } from './task/tesk.model';
+import { Task } from './task/task.model';
 import { AppService } from './app.service';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
