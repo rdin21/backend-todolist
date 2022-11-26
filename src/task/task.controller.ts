@@ -2,7 +2,7 @@ import { CreateTaskDto, UpdateTaskDto, UpdateStatusDto, DeleteTaskDto } from './
 import { TaskService } from './task.service';
 import { Controller, Delete, Body, Post, Put, Patch } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Task } from './tesk.model';
+import { Task } from './task.model';
 
 @ApiTags('Задачи')
 @Controller('task')

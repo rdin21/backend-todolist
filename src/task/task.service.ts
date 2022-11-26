@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { CreateDateDto } from './../date/dto/create-date.dto';
+import { CheckDate } from './../date/dto/create-date.dto';
 import { DateService } from './../date/date.service';
 import { CreateTaskDto, UpdateTaskDto, UpdateStatusDto, DeleteTaskDto } from './dto/create-task.dto';
-import { Task } from './tesk.model';
+import { Task } from './task.model';
 
 @Injectable()
 export class TaskService {
@@ -18,7 +18,7 @@ export class TaskService {
             });
             return newTask;
         } else {
-            const obj: CreateDateDto = {
+            const obj: CheckDate = {
                 date,
             };
             const dateId = await this.dateService.createDate(obj);

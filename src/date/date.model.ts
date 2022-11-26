@@ -1,4 +1,4 @@
-import { Task } from './../task/tesk.model';
+import { Task } from '../task/task.model';
 import { ApiProperty } from '@nestjs/swagger';
 import { Column, DataType, Table, Model, HasMany } from 'sequelize-typescript';
 
@@ -24,10 +24,4 @@ export class TaskDate extends Model<TaskDate, TaskDateCreationAttrs> {
 
     @HasMany(() => Task)
     taskDate: TaskDate[];
-    // @ForeignKey(() => Task)
-    // @Column({type: DataType.INTEGER})
-    // taskId: number
-
-    // @BelongsTo(() => Task)
-    // task: Task
 }

@@ -1,6 +1,6 @@
 import { DateModule } from './../date/date.module';
 import { TaskDate } from './../date/date.model';
-import { Task } from './tesk.model';
+import { Task } from './task.model';
 import { Module } from '@nestjs/common';
 import { TaskService } from './task.service';
 import { TaskController } from './task.controller';
